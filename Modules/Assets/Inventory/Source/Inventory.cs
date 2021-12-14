@@ -10,7 +10,7 @@ namespace Modules.Inventory
         public InventorySlot this[int index] => _slots[index];
         public int Capacity => _slots.Count;
 
-        [JsonProperty("items")]
+        [JsonProperty("slots")]
         private readonly List<InventorySlot> _slots;
 
         public Inventory(int capacity)

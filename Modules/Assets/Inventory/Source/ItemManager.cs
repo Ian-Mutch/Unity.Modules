@@ -36,10 +36,12 @@ namespace Modules.Inventory
         private static void EnsureInstanceExists()
         {
             if(_instance == null)
-                _instance = Object.FindObjectOfType<ItemManager>();
+                _instance = FindObjectOfType<ItemManager>();
 
             if(_instance == null)
                 throw new InventoryException($"No instance of {nameof(ItemManager)} exists in the scene");
+
+            var inventory = new Inventory(1);
         }
     }
 }
