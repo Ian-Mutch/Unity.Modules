@@ -31,7 +31,7 @@ namespace Modules.Inventory
             if (quantity == 0)
                 throw new System.ArgumentOutOfRangeException(nameof(quantity), $"Cannot add item {item.name} with quantity of {quantity}. Quantity must be greater than zero.");
 
-            var slot = GetSlotOrNextEmpty(item);
+            var slot = GetSlotOrEmpty(item);
             if (slot.IsEmpty)
                 slot.Set(item, quantity);
             else
@@ -43,7 +43,7 @@ namespace Modules.Inventory
             if (quantity == 0)
                 throw new System.ArgumentOutOfRangeException(nameof(quantity), $"Cannot remove item {item.name} with quantity of {quantity}. Quantity must be greater than zero.");
 
-            var slot = GetSlotOrNextEmpty(item);
+            var slot = GetSlotOrEmpty(item);
             if (slot.IsEmpty)
                 throw new InventoryException($"Inventory does not contain the item {item.Name} so it cannot be removed");
 
@@ -52,13 +52,7 @@ namespace Modules.Inventory
                 slot.Empty();
         }
 
-        public IEnumerator<InventorySlot> GetEnumerator() =>
-            _slots.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() =>
-            GetEnumerator();
-
-        internal InventorySlot GetSlotOrNextEmpty(ItemBase item)
+        public InventorySlot GetSlotOrEmpty(ItemBase item)
         {
             if (item == null)
                 throw new System.ArgumentNullException(nameof(item));
@@ -79,6 +73,12 @@ namespace Modules.Inventory
 
             return _slots[emptySlotIndex];
         }
+
+        public IEnumerator<InventorySlot> GetEnumerator() =>
+            _slots.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() =>
+            GetEnumerator();
 
         public class InventorySlot
         {

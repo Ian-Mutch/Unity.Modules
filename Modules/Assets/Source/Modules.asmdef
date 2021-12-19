@@ -2,7 +2,8 @@
     "name": "Modules",
     "rootNamespace": "Modules",
     "references": [
-        "GUID:fb9c6ca23fb821c4ea996a3ec2414ee7"
+        "GUID:fb9c6ca23fb821c4ea996a3ec2414ee7",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

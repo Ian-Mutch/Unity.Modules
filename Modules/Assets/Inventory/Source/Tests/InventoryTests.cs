@@ -93,7 +93,7 @@ namespace Modules.Inventory.Tests
             inventory.Add(item, 2);
 
             // Act
-            var slot = inventory.GetSlotOrNextEmpty(item);
+            var slot = inventory.GetSlotOrEmpty(item);
 
             // Assert
             Assert.IsNotNull(slot);
@@ -109,7 +109,7 @@ namespace Modules.Inventory.Tests
             var item = TestItem.CreateInstance(1, "test");
 
             // Act
-            var slot = inventory.GetSlotOrNextEmpty(item);
+            var slot = inventory.GetSlotOrEmpty(item);
 
             // Assert
             Assert.IsNotNull(slot);
@@ -123,7 +123,7 @@ namespace Modules.Inventory.Tests
             var inventory = new Inventory(1);
 
             // Act & Assert
-            Assert.Throws<System.ArgumentNullException>(() => inventory.GetSlotOrNextEmpty(null));
+            Assert.Throws<System.ArgumentNullException>(() => inventory.GetSlotOrEmpty(null));
         }
 
         [Test]

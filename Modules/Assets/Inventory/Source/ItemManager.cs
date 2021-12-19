@@ -25,8 +25,8 @@ namespace Modules.Inventory
         {
             if(_instance != null && _instance != this)
             {
-                Debug.LogWarning("A second instance of ItemManager exists in the scene, destroying...", this);
-                Destroy(this.gameObject);
+                Debug.LogWarning($"A second instance of {nameof(ItemManager)} exists in the scene, destroying...", this);
+                Destroy(gameObject);
                 return;
             }
 
@@ -40,8 +40,6 @@ namespace Modules.Inventory
 
             if(_instance == null)
                 throw new InventoryException($"No instance of {nameof(ItemManager)} exists in the scene");
-
-            var inventory = new Inventory(1);
         }
     }
 }
