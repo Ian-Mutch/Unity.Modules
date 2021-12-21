@@ -1,30 +1,51 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Modules
+namespace Modules.GUI
 {
     public class InventoryWidget : MonoBehaviour
     {
-        private static InventoryWidget _instance;
+        [SerializeField]
+        private GameObject _inventorySlotPrefab;
+        private int _inventorySize;
+        private List<InventorySlotWidget> _inventorySlots;
 
-        public static void Show()
+        public void Show(Inventory.Inventory inventory)
         {
-            _instance.gameObject.SetActive(true);
-        }
-
-        public static void Hide()
-        {
-            _instance.gameObject.SetActive(false);
-        }
-
-        private void Awake()
-        {
-            if(_instance != null && _instance != this)
+            if (inventory.Capacity != _inventorySize)
             {
-                Debug.LogWarning("", this);
-                Destroy(gameObject);
+                _inventorySize = inventory.Capacity;
+                RedrawInventory();
             }
 
-            _instance = this;
+            gameObject.SetActive(true);
+        }
+
+        private void RedrawInventory()
+        {
+            foreach (var slot in _inventorySlots)
+                Destroy(slot.gameObject);
+            _inventorySlots = new List<InventorySlotWidget>(_inventorySize);
+
+            var columnIndex = 0;
+            var rowIndex = 0;
+            for (int i = 0; i < _inventorySize; i++)
+            {
+                var position = new Vector2(columnIndex);
+
+
+            }
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void Start()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

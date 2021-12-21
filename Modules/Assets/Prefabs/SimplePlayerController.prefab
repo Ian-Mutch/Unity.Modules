@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3298497224145561187}
   - component: {fileID: 3298497224145561186}
+  - component: {fileID: 3298497225038365267}
   m_Layer: 0
   m_Name: SimplePlayerController
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3298497224145561186
 MonoBehaviour:
@@ -44,4 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a376bd07e62c1a44cb474a79a19d6a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterController: {fileID: 0}
+  _pawn: {fileID: 0}
+--- !u!114 &3298497225038365267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298497224145561184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75369b2e1497c374882161557ccdc0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _capacity: 12
