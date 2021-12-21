@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Modules
@@ -8,9 +9,11 @@ namespace Modules
     {
         private static readonly Dictionary<int, Dictionary<string, Action<InputAction.CallbackContext>>> _listeners = new Dictionary<int, Dictionary<string, Action<InputAction.CallbackContext>>>();
 
-        private static void OnActionTriggered(int playerIndex, InputAction.CallbackContext e)
+        private static void OnActionTriggered(PlayerInput input, InputAction.CallbackContext e)
         {
-            if (!_listeners.TryGetValue(playerIndex, out var actionCallbacks))
+            Debug.Log($"Action triggered: {e.action.name}");
+
+            if (!_listeners.TryGetValue(input.playerIndex, out var actionCallbacks))
                 return;
 
             if (!actionCallbacks.TryGetValue(e.action.name, out var callbacks))
@@ -34,7 +37,7 @@ namespace Modules
                 actionCallbacks = new Dictionary<string, Action<InputAction.CallbackContext>>();
                 _listeners.Add(playerIndex, actionCallbacks);
 
-                playerInput.onActionTriggered += (e) => OnActionTriggered(playerInput.playerIndex, e);
+                action.performed += (e) => OnActionTriggered(playerInput, e);
             }
                 
             if (!actionCallbacks.TryGetValue(actionName, out var callbacks))
