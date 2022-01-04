@@ -28,13 +28,10 @@ namespace Modules.GUI
                 Destroy(slot.gameObject);
             _inventorySlots = new List<InventorySlotWidget>(_inventorySize);
 
-            var columnIndex = 0;
-            var rowIndex = 0;
             for (int i = 0; i < _inventorySize; i++)
             {
-                var position = new Vector2(columnIndex);
-
-
+                var inventorySlot = Instantiate(_inventorySlotPrefab, transform);
+                _inventorySlots.Add(inventorySlot.GetComponent<InventorySlotWidget>());
             }
         }
 

@@ -18,18 +18,12 @@ namespace Modules.GUI
         [SerializeField]
         private InventoryWidget _inventoryWidget;
 
-        private void OnEnable()
+        private void OnCancelPerformed(InputAction.CallbackContext obj)
         {
-            _saveButton.onClick.AddListener(OnSaveClickedAsync);
-            _loadButton.onClick.AddListener(OnLoadClickedAsync);
-
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
-
-            InputManager.AddListener(0, "Start", OnStartPerformed);
-            InputManager.AddListener(0, "Inventory", OnInventoryPerformed);
+            Show(false);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _saveButton.onClick.RemoveListener(OnSaveClickedAsync);
             _loadButton.onClick.RemoveListener(OnLoadClickedAsync);
@@ -37,26 +31,43 @@ namespace Modules.GUI
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
 
             InputManager.RemoveListener(0, "Start", OnStartPerformed);
+            InputManager.RemoveListener(0, "Cancel", OnCancelPerformed);
             InputManager.RemoveListener(0, "Inventory", OnInventoryPerformed);
         }
 
         private void Start()
         {
+            _saveButton.onClick.AddListener(OnSaveClickedAsync);
+            _loadButton.onClick.AddListener(OnLoadClickedAsync);
+
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+
+            InputManager.AddListener(0, "Start", OnStartPerformed);
+            InputManager.AddListener(0, "Cancel", OnCancelPerformed);
+            InputManager.AddListener(0, "Inventory", OnInventoryPerformed);
+
             LockAndHideCursor(true);
             gameObject.SetActive(false);
         }
 
         private void OnStartPerformed(InputAction.CallbackContext obj)
         {
-            if (gameObject.activeSelf)
-            {
-                InputManager.SwitchActionMap(0, "Player");
-                LockAndHideCursor(true);
-            }
-            else
+            Show(true);
+        }
+
+        private void Show(bool show)
+        {
+            if (show)
             {
                 InputManager.SwitchActionMap(0, "UI");
                 LockAndHideCursor(false);
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                InputManager.SwitchActionMap(0, "Player");
+                LockAndHideCursor(true);
+                gameObject.SetActive(false);
             }
         }
 
@@ -65,8 +76,7 @@ namespace Modules.GUI
             if (gameObject.activeSelf)
                 return;
 
-            InputManager.SwitchActionMap(0, "UI");
-            LockAndHideCursor(false);
+            Show(true);
 
             var inventory = Inventory.InventoryManager.GetInventory();
             _inventoryWidget.Show(inventory);
